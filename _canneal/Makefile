@@ -1,10 +1,11 @@
 #makefile
-GCC_TOOLCHAIN_DIR := /home/liaochunyu/cxo/newlib/
+GCC_TOOLCHAIN_DIR := /root/RISCV/Bin/riscv64/riscv-elf
 SYSROOT_DIR := $(GCC_TOOLCHAIN_DIR)/riscv64-unknown-elf
 
-LLVM := /home/liaochunyu/rvv-llvm/build/
-SPIKE := /home/liaochunyu/riscv-isa-sim/build/spike
-PK := /home/liaochunyu/riscv-pk/build/pk
+LLVM := /root/RISCV/Bin/llvm
+SPIKE := /root/RISCV/Bin/riscv64/riscv-elf/bin/spike
+PK := /root/RISCV/Bin/riscv64/riscv-elf/riscv64-unknown-elf/bin/pk
+
 
 target = bin/rvv-test
 
@@ -33,7 +34,7 @@ vector:
 	${LLVM}/bin/clang++ -Wall --target=riscv64-unknown-elf -DUSE_RISCV_VECTOR -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR) -O2 -c -o src/netlist.o src/netlist.cpp
 	${LLVM}/bin/clang++ -Wall --target=riscv64-unknown-elf -DUSE_RISCV_VECTOR -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR) -O2 -c -o src/netlist_elem.o src/netlist_elem.cpp
 	${LLVM}/bin/clang++ -Wall --target=riscv64-unknown-elf -DUSE_RISCV_VECTOR -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR) -O2 -c -o src/rng.o src/rng.cpp
-	${LLVM}/bin/clang++ -Wall --target=riscv64-unknown-elf -DUSE_RISCV_VECTOR -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR) -O2  -o bin/canneal_vector.exe src/*.o -lm
+	${LLVM}/bin/clang++ -Wall --target=riscv64-unknown-elf -DUSE_RISCV_VECTOR -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR) -O2  -o $(target) src/*.o -lm
 	rm src/*.o
 
 runspike :

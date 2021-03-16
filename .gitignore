@@ -1,0 +1,4 @@
+*.o
+rvv-test
+dump_vector
+output.txt
