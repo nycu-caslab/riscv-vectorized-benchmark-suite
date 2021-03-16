@@ -1,80 +1,47 @@
 BASE_DIR := $(shell pwd)
 
-APPLICATION_DIRS := _blackscholes _swaptions _streamcluster _canneal _particlefilter _pathfinder _jacobi-2d _matmul _axpy
 
-all: blackscholes swaptions streamcluster canneal particlefilter pathfinder jacobi-2d matmul axpy
+APPLICATION_DIRS := _blackscholes _swaptions _streamcluster _canneal _particlefilter _pathfinder _axpy
+all: blackscholes swaptions streamcluster canneal particlefilter pathfinder axpy
 
 blackscholes:
-	cd _blackscholes; 	\
-	make start;			\
-	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
-
+	cd _blackscholes; 			\
+	make vector;                            \
+	make runspike;
 swaptions:
 	cd _swaptions; 		\
-	make start;			\
 	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
+	make runspike;
 
 streamcluster:
 	cd _streamcluster; 	\
-	make start;			\
 	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
+	make runspike;
 
 canneal:
 	cd _canneal; 		\
-	make start;			\
-	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
+	make vector;            \
+	make runspike;
 
 particlefilter:
 	cd _particlefilter;	\
-	make start;			\
-	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
+	make vector;            \
+	make runspike;
 
 pathfinder:
 	cd _pathfinder;		\
-	make start;			\
 	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
+	make runspike;
 
 jacobi-2d:
 	cd _jacobi-2d;		\
-	make start;			\
 	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
-
-matmul:
-	cd _matmul; 		\
-	make start;			\
-	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
+	make host;		
 
 axpy:
-	cd _axpy; 			\
-	make start;			\
-	make vector; 		\
-	make serial; 		\
-	make host;			\
-	make copy;
+	cd _axpy;		\
+	make vector;              \
+	make runspike;          
 
 clean:
 	for dir in $(APPLICATION_DIRS) ; do cd $$dir ; make clean ; cd .. ; done

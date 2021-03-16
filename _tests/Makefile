@@ -1,4 +1,11 @@
 #makefile
+GCC_TOOLCHAIN_DIR := /root/RISCV/Bin/riscv64/riscv-elf
+SYSROOT_DIR := $(GCC_TOOLCHAIN_DIR)/riscv64-unknown-elf
+
+LLVM := /root/RISCV/Bin/llvm
+SPIKE := /root/RISCV/Bin/riscv64/riscv-elf/bin/spike
+PK := /root/RISCV/Bin/riscv64/riscv-elf/riscv64-unknown-elf/bin/pk
+
 
 start:
 	mkdir bin; \
