@@ -828,13 +828,13 @@ void particleFilter_vector(int * I, int IszX, int IszY, int Nfr, int * seed, lon
             for(j = 0; j < Nparticles; j++){    
                 xCDF = _MM_SET_f64(CDF[j],gvl);
                 xComp = _MM_VFGE_f64(xCDF,xU,gvl);
-                xComp = _MM_CAST_i1_i64(_MM_XOR_i64(_MM_CAST_i64_i1(xComp),xMask,gvl));
+                xComp = _MM_CAST_i1_i64(_MM_XOR_i64(_MM_CAST_i64_i1(xComp,gvl),xMask,gvl),gvl);
                 valid = _MM_VMFIRST_i64(xComp,gvl);
                 if(valid != -1)
                 {
                     xArray = _MM_MERGE_i64(xArray,_MM_SET_i64(j,gvl),xComp,gvl);
-                    xMask = _MM_OR_i64(_MM_CAST_i64_i1(xComp),xMask,gvl);
-                    vector_complete = _MM_VMPOPC_i64(_MM_CAST_i1_i64(xMask),gvl);
+                    xMask = _MM_OR_i64(_MM_CAST_i64_i1(xComp,gvl),xMask,gvl);
+                    vector_complete = _MM_VMPOPC_i64(_MM_CAST_i1_i64(xMask,gvl),gvl);
                 }
                 if(vector_complete == gvl){ break; }
                 //FENCE();
