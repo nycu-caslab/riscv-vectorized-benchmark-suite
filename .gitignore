@@ -1,0 +1,5 @@
+# Ignore Binaries
+bin/
+
+# Ignore Outputs
+output/
