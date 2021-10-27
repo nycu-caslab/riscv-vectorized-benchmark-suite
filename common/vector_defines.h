@@ -318,10 +318,10 @@ vfloat64m1_t vmerge_vvm_f64m1 (vbool64_t mask, vfloat64m1_t op1, vfloat64m1_t op
 #define _MM_MERGE_f32(op1, op2, op3, op4) vmerge_vvm_f32m1(op3, op1, op2, op4)
 
 //#define _MM_REDSUM_f64  	__builtin_epi_vfredsum_1xf64 
-#define _MM_REDSUM_f64(op1, op2, op3) vfredusum_vs_f64m1_f64m1(op2, op1, op2, op3)
+#define _MM_REDSUM_f64(op1, op2, op3) vfredsum_vs_f64m1_f64m1(op2, op1, op2, op3)
 
 //#define _MM_REDSUM_f32  	__builtin_epi_vfredsum_2xf32
-#define _MM_REDSUM_f32(op1, op2, op3) vfredusum_vs_f32m1_f32m1(op2, op1, op2, op3)
+#define _MM_REDSUM_f32(op1, op2, op3) vfredsum_vs_f32m1_f32m1(op2, op1, op2, op3)
 
 #define _MM_REDSUM_f64_MASK __builtin_epi_vfredsum_1xf64_mask //TODO, not being used
 #define _MM_REDSUM_f32_MASK __builtin_epi_vfredsum_2xf32_mask  //TODO, not being used
@@ -424,10 +424,10 @@ vint32m2_t vslideup_vx_i32m2 (vint32m2_t dst, vint32m2_t src, size_t offset)
 // log : Rename 'vsetfirst' and 'vgetfirst' builtins to 'vmv.s.x'/'vfmv.s.f' and 'vmv.x.s'/'vfmv.f.s'
 //0.9 float32_t vfmv_f_s_f32m1_f32 (vfloat32m1_t src); 
 //#define _MM_VGETFIRST_f32   __builtin_epi_vgetfirst_2xf32 
-#define _MM_VGETFIRST_f32(op1, op2) vfmv_f_s_f32m1_f32(op1, op2)
+#define _MM_VGETFIRST_f32(op1, op2) vfmv_f_s_f32m1_f32(op1)
 
 //#define _MM_VGETFIRST_f64   __builtin_epi_vgetfirst_1xf64
-#define _MM_VGETFIRST_f64(op1, op2) vfmv_f_s_f64m1_f64(op1, op2)
+#define _MM_VGETFIRST_f64(op1, op2) vfmv_f_s_f64m1_f64(op1)
 
 #define _MM_VSLIDEUP_f32    __builtin_epi_vslideup_2xf32 //TODO, not being used
 #define _MM_VSLIDEUP_f64    __builtin_epi_vslideup_1xf64 //TODO, not being used
