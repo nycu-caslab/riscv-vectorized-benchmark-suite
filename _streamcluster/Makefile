@@ -1,21 +1,25 @@
 #makefile
-GCC_TOOLCHAIN_DIR := /newlib/
-SYSROOT_DIR := $(GCC_TOOLCHAIN_DIR)/riscv64-unknown-elf
 
-LLVM := /llvm/build/
-SPIKE := spike
-PK := pk
+GCC_TOOLCHAIN_DIR := /opt/RISCV/
 
-target = bin/rvv-test
+start:
+	rm -rf bin/
+	rm -rf output/
+	mkdir bin
+	mkdir output
 
 serial:
-	${LLVM}/bin/clang++ --target=riscv64-unknown-elf -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR) -O2 -o $(target) src/streamcluster.cpp -lm
-	${LLVM}/bin/llvm-objdump -D --mattr=+experimental-v ./bin/rvv-test > ./bin/dump_serial
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -g -o bin/streamcluster_serial src/streamcluster.cpp
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/streamcluster_serial > bin/streamcluster_serial.dump
 
 vector:
-	${LLVM}/bin/clang++ --target=riscv64-unknown-elf -DUSE_RISCV_VECTOR   -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR)  -O2 -o $(target)  src/streamcluster.cpp -lm
-	${LLVM}/bin/llvm-objdump -D --mattr=+experimental-v ./bin/rvv-test > ./bin/dump_vector
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -static -g -o bin/streamcluster_vector src/streamcluster.cpp
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/streamcluster_vector > bin/streamcluster_vector.dump
 
-runspike :
-	echo >output.txt; \
-	$(SPIKE) --isa=rv64gcv $(PK) $(target) 3 10 128 128 128 10 none output.txt 1
+clean:
+	rm -rf bin/
+	rm -rf output/
+
+runqemu :
+	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/streamcluster_serial 3 10 128 128 128 10 none ./output/output_serial.txt 1
+	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/streamcluster_vector 3 10 128 128 128 10 none ./output/output_vector.txt 1

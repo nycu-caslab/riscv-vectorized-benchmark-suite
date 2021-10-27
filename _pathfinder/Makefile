@@ -1,19 +1,25 @@
 #makefile
-GCC_TOOLCHAIN_DIR := /newlib/
-SYSROOT_DIR := $(GCC_TOOLCHAIN_DIR)/riscv64-unknown-elf
 
-LLVM := /llvm/build/
-SPIKE := spike
-PK := pk
+GCC_TOOLCHAIN_DIR := /opt/RISCV/
 
-target = bin/rvv-test
+start:
+	rm -rf bin/
+	rm -rf output/
+	mkdir bin
+	mkdir output
 
 serial:
-	${LLVM}/bin/clang++ --target=riscv64-unknown-elf -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR) -O2 -o $(target) src/pathfinder.cpp
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -g -o bin/pathfinder_serial src/pathfinder.cpp
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/pathfinder_serial > bin/pathfinder_serial.dump
 
 vector:
-	${LLVM}/bin/clang++ --target=riscv64-unknown-elf -DUSE_RISCV_VECTOR   -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR)  -O2 -o $(target)  src/pathfinder.cpp
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -static -g -o bin/pathfinder_vector src/pathfinder.cpp
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/pathfinder_vector > bin/pathfinder_vector.dump
 
+clean:
+	rm -rf bin/
+	rm -rf output/
 
-runspike :
-	$(SPIKE) --isa=rv64gcv $(PK) $(target) 32 32 out
+runqemu :
+	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/pathfinder_serial 32 32 ./output/output_serial.txt
+	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/pathfinder_vector 32 32 ./output/output_vector.txt

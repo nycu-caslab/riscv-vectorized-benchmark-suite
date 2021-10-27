@@ -1,19 +1,26 @@
 #makefile
-GCC_TOOLCHAIN_DIR := /newlib/
-SYSROOT_DIR := $(GCC_TOOLCHAIN_DIR)/riscv64-unknown-elf
 
-LLVM := /llvm/build/
-SPIKE := spike
-PK := pk
+GCC_TOOLCHAIN_DIR := /opt/RISCV/
 
-target = bin/rvv-test
+start:
+	rm -rf bin/
+	rm -rf output/
+	mkdir bin
+	mkdir output
 
 serial:
-	${LLVM}/bin/clang++ --target=riscv64-unknown-elf -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR) -O2 -o $(target) src/blackscholes.cpp -lm
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -flax-vector-conversions -static -g -o bin/blackscholes_serial src/blackscholes.cpp
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/blackscholes_serial > bin/blackscholes_serial.dump
+
 
 vector:
-	${LLVM}/bin/clang++ --target=riscv64-unknown-elf -DUSE_RISCV_VECTOR   -march=rv64gcv1p0 -menable-experimental-extensions --sysroot=$(SYSROOT_DIR) --gcc-toolchain=$(GCC_TOOLCHAIN_DIR)  -O2 -o $(target)  src/blackscholes.cpp -lm
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -static -g -o bin/blackscholes_vector src/blackscholes.cpp
+	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/blackscholes_vector > bin/blackscholes_vector.dump
 
+clean:
+	rm -rf bin/
+	rm -rf output/
 
-runspike :
-	$(SPIKE) --isa=rv64gcv $(PK) $(target) 1 ./input/in_64K.input prices.txt
+runqemu :
+	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/blackscholes_serial 1 ./input/in_64K.input ./output/output_serial.txt
+	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/blackscholes_vector 1 ./input/in_64K.input ./output/output_vector.txt
