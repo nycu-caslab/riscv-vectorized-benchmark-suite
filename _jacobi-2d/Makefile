@@ -1,6 +1,8 @@
 #makefile
 
 GCC_TOOLCHAIN_DIR := /opt/RISCV/
+GEM5_DIR := /git/plct-gem5/
+BENCHMARK_DIR := /git/riscv-vectorized-benchmark-suite/
 
 start:
 	if [ ! -d bin ]; then \
@@ -35,9 +37,13 @@ clean:
 	rm -rf output/
 
 runqemu :
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/jacobi-2d_serial 200 1 ./output/output_serial.txt
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/jacobi-2d_vector 200 1 ./output/output_vector.txt
 
 runqemu_O2 :
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/jacobi-2d_serial_O2 200 1 ./output/output_serial.txt
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/jacobi-2d_vector_O2 200 1 ./output/output_vector.txt
+
+rungem5 :
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_jacobi-2d/bin/jacobi-2d_vector 200 1 ./output/output_vector.txt"
+
+rungem5_O2 :
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_jacobi-2d/bin/jacobi-2d_vector_O2 200 1 ./output/output_vector.txt"

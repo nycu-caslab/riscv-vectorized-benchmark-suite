@@ -1,6 +1,8 @@
 #makefile
 
 GCC_TOOLCHAIN_DIR := /opt/RISCV/
+GEM5_DIR := /git/plct-gem5/
+BENCHMARK_DIR := /git/riscv-vectorized-benchmark-suite/
 
 start:
 	if [ ! -d bin ]; then \
@@ -45,9 +47,13 @@ clean:
 	rm -rf bin/
 
 runqemu :
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/axpy_serial 256
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/axpy_vector 256
 
 runqemu_O2 :
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/axpy_serial_O2 256
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/axpy_vector_O2 256
+
+rungem5 :
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_axpy/bin/axpy_vector 256"
+
+rungem5_O2 :
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_axpy/bin/axpy_vector_O2 256"

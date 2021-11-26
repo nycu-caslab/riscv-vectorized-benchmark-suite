@@ -1,6 +1,8 @@
 #makefile
 
 GCC_TOOLCHAIN_DIR := /opt/RISCV/
+GEM5_DIR := /git/plct-gem5/
+BENCHMARK_DIR := /git/riscv-vectorized-benchmark-suite/
 
 start:
 	if [ ! -d bin ]; then \
@@ -35,9 +37,13 @@ clean:
 	rm -rf output/
 
 runqemu :
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/pathfinder_serial 32 32 ./output/output_serial.txt
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/pathfinder_vector 32 32 ./output/output_vector.txt
 
 runqemu_O2 :
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/pathfinder_serial_O2 32 32 ./output/output_serial.txt
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/pathfinder_vector_O2 32 32 ./output/output_vector.txt
+
+rungem5 :
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_pathfinder/bin/pathfinder_vector 1 100 300 input/100.nets 8"
+
+rungem5_O2 :
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_pathfinder/bin/pathfinder_vector_O2 1 100 300 input/100.nets 8"

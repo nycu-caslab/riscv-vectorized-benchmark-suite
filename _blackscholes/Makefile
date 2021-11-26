@@ -1,6 +1,8 @@
 #makefile
 
 GCC_TOOLCHAIN_DIR := /opt/RISCV/
+GEM5_DIR := /git/plct-gem5/
+BENCHMARK_DIR := /git/riscv-vectorized-benchmark-suite/
 
 start:
 	if [ ! -d bin ]; then \
@@ -37,9 +39,13 @@ clean:
 	rm -rf output/
 
 runqemu :
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/blackscholes_serial 1 ./input/in_64K.input ./output/output_serial.txt
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/blackscholes_vector 1 ./input/in_64K.input ./output/output_vector.txt
+	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/blackscholes_vector 1 input/in_512.input output_prices.txt
 
 runqemu_O2 :
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/blackscholes_serial_O2 1 ./input/in_64K.input ./output/output_serial.txt
-	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/blackscholes_vector_O2 1 ./input/in_64K.input ./output/output_vector.txt
+	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/blackscholes_vector_O2 1 input/in_512.input output_prices.txt
+
+rungem5 :
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_blackscholes/bin/blackscholes_vector 1 input/in_512.input output_prices.txt"
+
+rungem5_O2 :
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_blackscholes/bin/blackscholes_vector_O2 1 input/in_512.input output_prices.txt"
