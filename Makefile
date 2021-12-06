@@ -2,17 +2,17 @@ BASE_DIR := $(shell pwd)
 
 APPLICATION_DIRS := _blackscholes _swaptions _streamcluster _canneal _particlefilter _pathfinder _jacobi-2d _axpy
 
-all: blackscholes swaptions streamcluster canneal pathfinder jacobi-2d axpy
+all: blackscholes swaptions streamcluster canneal particlefilter pathfinder jacobi-2d axpy
 
-all_O2: blackscholes_O2 swaptions_O2 streamcluster_O2 canneal_O2 pathfinder_O2 jacobi-2d_O2 axpy_O2
+all_O2: blackscholes_O2 swaptions_O2 streamcluster_O2 canneal_O2 particlefilter_O2 pathfinder_O2 jacobi-2d_O2 axpy_O2
 
-rungem5_all: rungem5_blackscholes rungem5_swaptions rungem5_streamcluster rungem5_canneal rungem5_pathfinder rungem5_jacobi-2d rungem5_axpy
+rungem5_all: rungem5_blackscholes rungem5_swaptions rungem5_streamcluster rungem5_canneal rungem5_particlefilter rungem5_pathfinder rungem5_jacobi-2d rungem5_axpy
 
-rungem5_all_O2:rungem5_blackscholes_O2 rungem5_swaptions_O2 rungem5_streamcluster_O2 rungem5_canneal_O2 rungem5_pathfinder_O2 rungem5_jacobi-2d_O2 rungem5_axpy_O2
+rungem5_all_O2:rungem5_blackscholes_O2 rungem5_swaptions_O2 rungem5_streamcluster_O2 rungem5_canneal_O2 rungem5_particlefilter_O2 rungem5_pathfinder_O2 rungem5_jacobi-2d_O2 rungem5_axpy_O2
 
-runqemu_all: runqemu_blackscholes runqemu_swaptions runqemu_streamcluster runqemu_canneal runqemu_pathfinder runqemu_jacobi-2d runqemu_axpy
+runqemu_all: runqemu_blackscholes runqemu_swaptions runqemu_streamcluster runqemu_canneal runqemu_particlefilter runqemu_pathfinder runqemu_jacobi-2d runqemu_axpy
 
-runqemu_all_O2:runqemu_blackscholes_O2 runqemu_swaptions_O2 runqemu_streamcluster_O2 runqemu_canneal_O2 runqemu_pathfinder_O2 runqemu_jacobi-2d_O2 runqemu_axpy_O2
+runqemu_all_O2:runqemu_blackscholes_O2 runqemu_swaptions_O2 runqemu_streamcluster_O2 runqemu_canneal_O2 runqemu_particlefilter_O2 runqemu_pathfinder_O2 runqemu_jacobi-2d_O2 runqemu_axpy_O2
 
 blackscholes:
 	cd _blackscholes; 	\
