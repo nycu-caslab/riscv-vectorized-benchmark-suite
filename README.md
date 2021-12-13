@@ -1,5 +1,7 @@
 # RISC-V Vectorized Bencmark Suite
 
+this repository is forked from https://github.com/RALC88/riscv-vectorized-benchmark-suite. The original implementation is based on rvv-0.7.1 and it has been updated to be based on rvv-1.0 in this repository.
+
 ## Overview
 
 The RISC-V Vectorized Benchmark Suite is a collection composed of seven data-parallel applications from different domains. The suite focuses on benchmarking vector microarchitectures; nevertheless, it can be used as well for Multimedia SIMD microarchitectures. Current implementation is targeting RISC-V Architectures; however, it can be easily ported to any Vector/SIMD ISA thanks to a wrapper library which we developed to map vector intrinsics and math functions to the target architecture.
@@ -25,6 +27,9 @@ Cristóbal Ramirez, César Hernandez, Oscar Palomar, Osman Unsal, Marco Ramírez
         canneal/                : canneal main folder
         ...../src               : canneal sources
         ...../bin               : canneal binary
+        _jacobi-2d/             : jacobi-2d main folder
+        ...../src               : jacobi-2d sources
+        ...../bin               : jacobi-2d binary
         particlefilter/         : particlefilter main folder
         ...../src               : particlefilter sources
         ...../bin               : particlefilter binary
@@ -41,44 +46,103 @@ Cristóbal Ramirez, César Hernandez, Oscar Palomar, Osman Unsal, Marco Ramírez
 
 ## Building Vectorized Applications 
 
-The RISC-V Vectorized Bencmark Suite has been successfully tested on [Spike RISC-V ISA Simulator](https://github.com/riscv/riscv-isa-sim)
+The RISC-V Vectorized Bencmark Suite has been successfully tested on QEMU Simulator of the *rvv-intrinsic* branch of [RISC-V GNU toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and the *benchmark* branch of [plct-gem5](https://github.com/plctlab/plct-gem5)
 
 ### Setting up the environment
 
-The Suite includes a makefile to compile every application, in order to use it, you must define the path to the RISC-V vector compiler.
+The Suite includes a makefile to compile every application. In order to use it, you must [Build RISC-V GNU toolchain](./Build_RISCV_GNU_toolchain.md) and define the path to it.
 
-Setting the Vector Compiler path
+Setting RISC-V GNU toolchain path
 ```
-export LLVM=$TOP/riscv-toolchain
+export GCC_TOOLCHAIN_DIR := /opt/RISCV/
 ```
 
-Currently, the Suite can only be compiled by the [LLVM from PLCT](https://github.com/isrc-cas/rvv-llvm). We will update the Suite to be compiled by the upstream LLVM when it is available.
+Currently, the Suite can only be compiled by the *rvv-intrinsic* branch of [RISC-V GNU toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain).
 
-### Compile using  clang for RISCV Vector Version
+### Compile using RISC-V GNU toolchain for RISCV Vector Version
 
-We provide precompiled binaries found in the folder bin.
-
-To compile any application you first enter in the subfolder and run the command make followed by the application name
+To compile any application you can run the command make followed by the application name
 ```
-cd _application
-make application 
+make $application
 ```
 For example to compile blackscholes:
 ```
-cd _blackscholes
 make blackscholes 
 ```
 The same for the other applications ...
 
+To compile all applications you can run
+```
+make all
+```
+
+To compile with the "-O2" optimization option you can run the command with "\_O2" suffix. For example:
+```
+make all_O2
+```
+or
+```
+make blackscholes_O2
+```
 
 ### Running applications
 
-There are provided 5 different simulation sizes (arguments to run the application). But I only use it for functional testing, without calculating the time.
+The Suite includes a makefile to compile every application. In order to use it, you must [build QEMU Simulator of RISC-V GNU toolchain](./Build_RISCV_GNU_toolchain.md) or [plct-gem5](https://github.com/plctlab/plct-gem5) and define the path to it.
+
+Setting path of gem5 and benchmark:
+```
+export GEM5_DIR := /git/plct-gem5/
+export BENCHMARK_DIR := /git/riscv-vectorized-benchmark-suite/
+```
+
+To run any application you first enter in the subfolder and run the running command.
+```
+cd _$application
+make runqemu
+```
+or
+```
+cd _$application
+make rungem5
+```
+
+For example:
+```
+cd _blackscholes
+make runqemu
+```
+or
+```
+cd _blackscholes
+make rungem5
+```
+
+To run the version with "-O2" optimization option you can run the command with "\_O2" suffix.
+```
+cd _$application
+make runqemu_O2
+```
+or
+```
+cd _$application
+make rungem5_O2
+```
+
+To run all applications you can:
+```
+make runqemu_all{_O2}
+```
+or
+```
+make rungem5_all{_O2}
+```
+
+There are provided 4 different simulation sizes (arguments to run the application).
 ```
 simtiny 
 simsmall
 simmedium
-simlarge 
+simlarge
 ```
 
 Whe you are executing an application, you must write the following arguments to run a predefined simsize.
@@ -90,8 +154,6 @@ streamcluster_args  = "3 10 128 128 128 10 none output.txt 1"
 swaptions_args      = "-ns 8 -sm 512 -nt 1"
 particlefilter_args = "-x 128 -y 128 -z 2 -np 256"
 pathfinder_args     = "32 32 output.txt"
-heatequation_args   = " input/test_small.input output.ppm"
-matmul_args         = "8 8 8"
 axpy_args           = "256"
 ```
 
@@ -103,8 +165,6 @@ streamcluster_args  = "10 20 128 4096 4096 1000 none output.txt 1"
 swaptions_args      = "-ns 8 -sm 4096 -nt 1"
 particlefilter_args = "-x 128 -y 128 -z 8 -np 1024"
 pathfinder_args     = "1024 128 output.txt"
-heatequation_args   = " input/test_small.input output.ppm"
-matmul_args         = "128 128 128"
 axpy_args           = "512"
 ```  
 
@@ -116,8 +176,6 @@ streamcluster_args  = "10 20 128 8192 8192 1000 none output.txt 1"
 swaptions_args      = "-ns 32 -sm 8192 -nt 1"
 particlefilter_args = "-x 128 -y 128 -z 16 -np 4096"
 pathfinder_args     = "2048 256 output.txt"
-heatequation_args   = " input/test_medium.input output.ppm"
-matmul_args         = "256 256 256"
 axpy_args           = "1024"
 ```  
 
@@ -129,28 +187,27 @@ streamcluster_args  = "10 20 128 8192 8192 1000 none output.txt 1"
 swaptions_args      = "-ns 64 -sm 16384 -nt 1"
 particlefilter_args = "-x 128 -y 128 -z 24 -np 8192"
 pathfinder_args     = "2048 1024 output.txt"
-heatequation_args   = " input/test_large.input output.ppm"
-matmul_args         = "1024 1024 1024"
 axpy_args           = "2048"
 ```  
 
-#### Example of execution blackscholes serial version.
-```
-./blackscholes_serial 1 input/in_64K.input prices.txt
+*simtiny* is used by commands in Makefiles. If you want to run with the other simsize, you can try following commands, too.
 
 ```
-#### Example of execution blackscholes vector version.
+cd _$application
+${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/$application_bin $application_args
 ```
-./blackscholes_vector 1 input/in_64K.input prices.txt
-
+or
 ```
-
-You will also need to install the [riscv-pk](https://github.com/riscv/riscv-pk) in order for Spike to run
+cd _$application
+${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_$application/bin/$application_bin $application_args"
+```
 
 ## Contact
+Yin Zhang zhangyin2018@iscas.ac.cn
+PLCT Lab
+
+Original author:
 Cristóbal Ramírez Lazo: cristobal.ramirez@bsc.es
 PhD. Student at UPC Barcelona   
 BSC - Barcelona Supercomputing Center
 
-Chunyu Liao chunyu@iscas.ac.cn
-PLCT Lab
