@@ -202,9 +202,9 @@ cd _$application
 ${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_$application/bin/$application_bin $application_args"
 ```
 
-## Contact
-Yin Zhang zhangyin2018@iscas.ac.cn
-PLCT Lab
+## Contributors and Contacts
+Yin Zhang   zhangyin2018@iscas.ac.cn
+Chunyu Liao chunyu@iscas.ac.cn
 
 Original author:
 Cristóbal Ramírez Lazo: cristobal.ramirez@bsc.es
