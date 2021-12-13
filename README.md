@@ -1,6 +1,6 @@
 # RISC-V Vectorized Bencmark Suite
 
-this repository is forked from https://github.com/RALC88/riscv-vectorized-benchmark-suite. The original implementation is based on rvv-0.7.1 and it has been updated to be based on rvv-1.0 in this repository.
+This repository is forked from https://github.com/RALC88/riscv-vectorized-benchmark-suite. The original implementation is based on rvv-0.7.1 and it has been updated to be based on rvv-1.0 in this repository.
 
 ## Overview
 
@@ -46,7 +46,7 @@ Cristóbal Ramirez, César Hernandez, Oscar Palomar, Osman Unsal, Marco Ramírez
 
 ## Building Vectorized Applications 
 
-The RISC-V Vectorized Bencmark Suite has been successfully tested on QEMU Simulator of the *rvv-intrinsic* branch of [RISC-V GNU toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and the *benchmark* branch of [plct-gem5](https://github.com/plctlab/plct-gem5)
+The RISC-V Vectorized Bencmark Suite has been successfully tested on QEMU Simulator of the **rvv-intrinsic** branch of [RISC-V GNU toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and the **benchmark** branch of [plct-gem5](https://github.com/plctlab/plct-gem5)
 
 ### Setting up the environment
 
@@ -57,7 +57,7 @@ Setting RISC-V GNU toolchain path
 export GCC_TOOLCHAIN_DIR := /opt/RISCV/
 ```
 
-Currently, the Suite can only be compiled by the *rvv-intrinsic* branch of [RISC-V GNU toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain).
+Currently, the Suite can only be compiled by the **rvv-intrinsic** branch of [RISC-V GNU toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain).
 
 ### Compile using RISC-V GNU toolchain for RISCV Vector Version
 
@@ -145,7 +145,7 @@ simmedium
 simlarge
 ```
 
-Whe you are executing an application, you must write the following arguments to run a predefined simsize.
+When you are executing an application, you must write the following arguments to run a predefined simsize.
 #### simtiny 
 ```
 blackscholes_args   = "1 input/in_512.input output_prices.txt"
@@ -190,7 +190,7 @@ pathfinder_args     = "2048 1024 output.txt"
 axpy_args           = "2048"
 ```  
 
-*simtiny* is used by commands in Makefiles. If you want to run with the other simsize, you can try following commands, too.
+**Simtiny** is used by commands in Makefiles. If you want to run with the other simsize, you can try following commands, too.
 
 ```
 cd _$application
