@@ -1,10 +1,10 @@
-# RISC-V Vectorized Bencmark Suite
+# RiVEC Bencmark Suite
 
 This repository is forked from https://github.com/RALC88/riscv-vectorized-benchmark-suite. The original implementation is based on rvv-0.7.1 and it has been updated to be based on rvv-1.0 in this repository.
 
 ## Overview
 
-The RISC-V Vectorized Benchmark Suite is a collection composed of seven data-parallel applications from different domains. The suite focuses on benchmarking vector microarchitectures; nevertheless, it can be used as well for Multimedia SIMD microarchitectures. Current implementation is targeting RISC-V Architectures; however, it can be easily ported to any Vector/SIMD ISA thanks to a wrapper library which we developed to map vector intrinsics and math functions to the target architecture.
+The RiVEC Benchmark Suite is a collection composed of data-parallel applications from different domains. The suite focuses on benchmarking vector microarchitectures; nevertheless, it can be used as well for Multimedia SIMD microarchitectures. Current implementation is targeting RISC-V Architectures; however, it can be easily ported to any Vector/SIMD ISA thanks to a wrapper library which we developed to map vector intrinsics and math functions to the target architecture.
 
 The benchmark suite with all its applications and input sets is available as open source free of charge. Some of the benchmark programs have their own licensing terms which might limit their use in some cases.
 
