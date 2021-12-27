@@ -516,7 +516,7 @@ https://github.com/riscv/rvv-intrinsic-doc/issues/37
 #define _MM_VMFIRST_i32(op1, op2) vfirst_m_b32(op1, op2) //This function is not found in epi's testcases
 
 //#define _MM_VMPOPC_i64 		__builtin_epi_vmpopc_1xi1
-#define _MM_VMPOPC_i64(op1, op2) vpopc_m_b64(op1, op2) //This function is not found in epi's testcases
+#define _MM_VMPOPC_i64(op1, op2) vcpop_m_b64(op1, op2) //This function is not found in epi's testcases
 //#define _MM_VMPOPC_i32 		__builtin_epi_vmpopc_2xi1 
 #define _MM_VMPOPC_i32(op1, op2) vpopc_m_b32(op1, op2) //This function is not found in epi's testcases
 
