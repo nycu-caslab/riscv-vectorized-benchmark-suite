@@ -15,6 +15,17 @@
 #define _MMR_i64            vint64m1_t //<vscale x 1 x i64> //__epi_1xi64
 #define _MMR_i32        	vint32m1_t //<vscale x 2 x i32> //__epi_2xi32
 
+//---------------------------------------------------------------------------
+// TYPE CAST
+
+#define _MM_CAST_f64_i64(op1)     vreinterpret_v_f64m1_i64m1(op1)
+
+#define _MM_CAST_i64_f64(op1)     vreinterpret_v_i64m1_f64m1(op1)
+
+#define _MM_CAST_f32_i32(op1)     vreinterpret_v_f32m1_i32m1(op1)
+
+#define _MM_CAST_i32_f32(op1)     vreinterpret_v_i32m1_f32m1(op1)
+
 
 //---------------------------------------------------------------------------
 // INTEGER INTRINSICS
