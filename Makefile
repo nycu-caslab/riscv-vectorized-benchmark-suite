@@ -4,7 +4,11 @@ APPLICATION_DIRS := _blackscholes _swaptions _streamcluster _canneal _particlefi
 
 all: blackscholes swaptions streamcluster canneal particlefilter pathfinder jacobi-2d axpy
 
+all_clang: blackscholes_clang swaptions_clang streamcluster_clang canneal_clang particlefilter_clang pathfinder_clang jacobi-2d_clang axpy_clang
+
 all_O2: blackscholes_O2 swaptions_O2 streamcluster_O2 canneal_O2 particlefilter_O2 pathfinder_O2 jacobi-2d_O2 axpy_O2
+
+all_O2_clang: blackscholes_O2_clang swaptions_O2_clang streamcluster_O2_clang canneal_O2_clang particlefilter_O2_clang pathfinder_O2_clang jacobi-2d_O2_clang axpy_O2_clang
 
 rungem5_all: rungem5_blackscholes rungem5_swaptions rungem5_streamcluster rungem5_canneal rungem5_particlefilter rungem5_pathfinder rungem5_jacobi-2d rungem5_axpy
 
@@ -109,6 +113,102 @@ axpy_O2:
 	make start;			\
 	make serial_O2; 	\
 	make vector_O2;
+
+blackscholes_clang:
+	cd _blackscholes; 		\
+	make start;				\
+	make serial_clang; 		\
+	make vector_clang;
+
+swaptions_clang:
+	cd _swaptions; 			\
+	make start;				\
+	make serial_clang; 		\
+	make vector_clang;
+
+streamcluster_clang:
+	cd _streamcluster; 		\
+	make start;				\
+	make serial_clang; 		\
+	make vector_clang;
+
+canneal_clang:
+	cd _canneal; 			\
+	make start;				\
+	make serial_clang; 		\
+	make vector_clang;
+
+particlefilter_clang:
+	cd _particlefilter;		\
+	make start;				\
+	make serial_clang; 		\
+	make vector_clang;
+
+pathfinder_clang:
+	cd _pathfinder;			\
+	make start;				\
+	make serial_clang; 		\
+	make vector_clang;
+
+jacobi-2d_clang:
+	cd _jacobi-2d;			\
+	make start;				\
+	make serial_clang; 		\
+	make vector_clang;
+
+axpy_clang:
+	cd _axpy; 				\
+	make start;				\
+	make serial_clang; 		\
+	make vector_clang;
+
+blackscholes_O2_clang:
+	cd _blackscholes; 		\
+	make start;				\
+	make serial_O2_clang; 	\
+	make vector_O2_clang;
+
+swaptions_O2_clang:
+	cd _swaptions; 			\
+	make start;				\
+	make serial_O2_clang; 	\
+	make vector_O2_clang;
+
+streamcluster_O2_clang:
+	cd _streamcluster; 		\
+	make start;				\
+	make serial_O2_clang; 	\
+	make vector_O2_clang;
+
+canneal_O2_clang:
+	cd _canneal; 			\
+	make start;				\
+	make serial_O2_clang; 	\
+	make vector_O2_clang;
+
+particlefilter_O2_clang:
+	cd _particlefilter;		\
+	make start;				\
+	make serial_O2_clang; 	\
+	make vector_O2_clang;
+
+pathfinder_O2_clang:
+	cd _pathfinder;			\
+	make start;				\
+	make serial_O2_clang; 	\
+	make vector_O2_clang;
+
+jacobi-2d_O2_clang:
+	cd _jacobi-2d;			\
+	make start;				\
+	make serial_O2_clang; 	\
+	make vector_O2_clang;
+
+axpy_O2_clang:
+	cd _axpy; 				\
+	make start;				\
+	make serial_O2_clang; 	\
+	make vector_O2_clang;
 
 rungem5_blackscholes: 
 	cd _blackscholes; 	\
