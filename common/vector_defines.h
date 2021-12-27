@@ -18,11 +18,19 @@
 //---------------------------------------------------------------------------
 // TYPE CAST
 
+#define _MM_CAST_u64_i64(op1)     vreinterpret_v_u64m1_i64m1(op1)
+
 #define _MM_CAST_f64_i64(op1)     vreinterpret_v_f64m1_i64m1(op1)
+
+#define _MM_CAST_f64_u64(op1)     vreinterpret_v_f64m1_u64m1(op1)
 
 #define _MM_CAST_i64_f64(op1)     vreinterpret_v_i64m1_f64m1(op1)
 
+#define _MM_CAST_u32_i32(op1)     vreinterpret_v_u32m1_i32m1(op1)
+
 #define _MM_CAST_f32_i32(op1)     vreinterpret_v_f32m1_i32m1(op1)
+
+#define _MM_CAST_f32_u32(op1)     vreinterpret_v_f32m1_u32m1(op1)
 
 #define _MM_CAST_i32_f32(op1)     vreinterpret_v_i32m1_f32m1(op1)
 
@@ -112,8 +120,12 @@ vint64m1_t vmv_v_x_i64m1 (int64_t src);
 //#define _MM_SET_i64     	__builtin_epi_vbroadcast_1xi64
 #define _MM_SET_i64(op1, op2) vmv_v_x_i64m1(op1, op2)
 
+#define _MM_SET_u64(op1, op2) vmv_v_x_u64m1(op1, op2)
+
 //#define _MM_SET_i32     	__builtin_epi_vbroadcast_2xi32 
 #define _MM_SET_i32(op1, op2) vmv_v_x_i32m1(op1, op2)
+
+#define _MM_SET_u32(op1, op2) vmv_v_x_u32m1(op1, op2)
 
 //#define _MM_MIN_i64         __builtin_epi_vmin_1xi64
 #define _MM_MIN_i64(op1, op2, op3) vmin_vv_i64m1(op1, op2, op3)
@@ -134,10 +146,10 @@ vint64m1_t vmv_v_x_i64m1 (int64_t src);
 #define _MM_SLL_i32(op1, op2, op3) vsll_vv_i32m1(op1, op2, op3)
 
 //#define _MM_SRL_i64     	__builtin_epi_vsrl_1xi64
-#define _MM_SRL_i64(op1, op2, op3) vsrl_vv_u64m1(op1, op2, op3)
+#define _MM_SRL_u64(op1, op2, op3) vsrl_vv_u64m1(op1, op2, op3)
 
 //#define _MM_SRL_i32     	__builtin_epi_vsrl_2xi32
-#define _MM_SRL_i32(op1, op2, op3) vsrl_vv_u32m1(op1, op2, op3)
+#define _MM_SRL_u32(op1, op2, op3) vsrl_vv_u32m1(op1, op2, op3)
 
 //#define _MM_AND_i64     	__builtin_epi_vand_1xi64
 #define _MM_AND_i64(op1, op2, op3) vand_vv_i64m1(op1, op2, op3)

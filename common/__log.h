@@ -69,7 +69,7 @@ _MMR_MASK_i64 invalid_mask = _MM_VFLE_f64(x,_MM_SET_f64(0.0f,gvl),gvl);
   x = _MM_MAX_f64(x, _ps256_min_norm_pos, gvl);  /* cut off denormalized stuff */
 
   // can be done with AVX2
-  imm0 = _MM_SRL_i64(_MM_CAST_f64_i64(x), _MM_SET_i64(52,gvl), gvl);
+  imm0 = _MM_CAST_u64_i64(_MM_SRL_u64(_MM_CAST_f64_u64(x), _MM_SET_u64(52,gvl), gvl));
 
   /* keep only the fractional part */
   _x_i = _MM_AND_i64(_MM_CAST_f64_i64(x), _256_inv_mant_mask, gvl);
@@ -178,7 +178,7 @@ _MMR_MASK_i32 invalid_mask = _MM_VFLE_f32(x,_MM_SET_f32(0.0f,gvl),gvl);
   x = _MM_MAX_f32(x, _ps256_min_norm_pos, gvl);  /* cut off denormalized stuff */
 
   // can be done with AVX2
-  imm0 = _MM_SRL_i32(_MM_CAST_f32_i32(x), _MM_SET_i32(23,gvl), gvl);
+  imm0 = _MM_CAST_u32_i32(_MM_SRL_u32(_MM_CAST_f32_u32(x), _MM_SET_u32(23,gvl), gvl));
 
   /* keep only the fractional part */
   _x_i = _MM_AND_i32(_MM_CAST_f32_i32(x), _256_inv_mant_mask, gvl);

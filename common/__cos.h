@@ -72,7 +72,7 @@ _MMR_MASK_i64 xMask;
   emm0 = _MM_XOR_i64(emm2, _MM_SET_i64(0xffffffffffffffff,gvl),gvl);
   emm0 = _MM_AND_i64(emm0, _pi32_4,gvl);
 
-  emm0 = _MM_SLL_i64(emm0, _MM_SET_i64(61,gvl),gvl);
+  emm0 = _MM_SLL_i64(emm0, _MM_SET_u64(61,gvl),gvl);
 
   /* get the polynom selection mask */
   emm2 = _MM_AND_i64(emm2, _pi32_2 ,gvl);
@@ -189,7 +189,7 @@ _MMR_MASK_i32 xMask;
   emm0 = _MM_XOR_i32(emm2, _MM_SET_i32(0xffffffff,gvl),gvl);
   emm0 = _MM_AND_i32(emm0, _pi32_4,gvl);
 
-  emm0 = _MM_SLL_i32(emm0, _MM_SET_i32(29,gvl),gvl);
+  emm0 = _MM_SLL_i32(emm0, _MM_SET_u32(29,gvl),gvl);
 
   /* get the polynom selection mask */
   emm2 = _MM_AND_i32(emm2, _pi32_2 ,gvl);
