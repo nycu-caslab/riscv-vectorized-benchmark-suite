@@ -46,33 +46,33 @@ vector_O2:
 
 serial_clang:
 	for entry in src/*.c ; do \
-		${CLANG_DIR}bin/clang --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -g -c -o $$entry.o $$entry; \
+		${CLANG_DIR}bin/clang --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -g -c -w -o $$entry.o $$entry; \
 	done
-	${CLANG_DIR}bin/clang --target=riscv64-unknown-linux -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -g -o bin/axpy_serial src/*.c.o -lm; \
+	${CLANG_DIR}bin/clang --target=riscv64-unknown-linux -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -g -w -o bin/axpy_serial src/*.c.o -lm; \
 	${CLANG_DIR}bin/llvm-objdump -d bin/axpy_serial > bin/axpy_serial.dump; \
 	rm src/*.o;
 
 vector_clang:
 	for entry in src/*.c ; do \
-		${CLANG_DIR}bin/clang --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -g -c -o $$entry.o $$entry; \
+		${CLANG_DIR}bin/clang --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -g -c -w -o $$entry.o $$entry; \
 	done
-	${CLANG_DIR}bin/clang --target=riscv64-unknown-linux -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -g -o bin/axpy_vector src/*.c.o -lm; \
+	${CLANG_DIR}bin/clang --target=riscv64-unknown-linux -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -g -w -o bin/axpy_vector src/*.c.o -lm; \
 	${CLANG_DIR}bin/llvm-objdump -d bin/axpy_vector > bin/axpy_vector.dump; \
 	rm src/*.o;
 
 serial_O2_clang:
 	for entry in src/*.c ; do \
-		${CLANG_DIR}bin/clang --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -O2 -g -c -o $$entry.o $$entry; \
+		${CLANG_DIR}bin/clang --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -O2 -g -c -w -o $$entry.o $$entry; \
 	done
-	${CLANG_DIR}bin/clang --target=riscv64-unknown-linux -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -O2 -g -o bin/axpy_serial_O2 src/*.c.o -lm; \
+	${CLANG_DIR}bin/clang --target=riscv64-unknown-linux -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -O2 -g -w -o bin/axpy_serial_O2 src/*.c.o -lm; \
 	${CLANG_DIR}bin/llvm-objdump -d bin/axpy_serial_O2 > bin/axpy_serial_O2.dump; \
 	rm src/*.o;
 
 vector_O2_clang:
 	for entry in src/*.c ; do \
-		${CLANG_DIR}bin/clang --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -O2 -static -g -c -o $$entry.o $$entry; \
+		${CLANG_DIR}bin/clang --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -O2 -static -g -c -w -o $$entry.o $$entry; \
 	done
-	${CLANG_DIR}bin/clang --target=riscv64-unknown-linux -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -O2 -static -g -o bin/axpy_vector_O2 src/*.c.o -lm; \
+	${CLANG_DIR}bin/clang --target=riscv64-unknown-linux -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -O2 -static -g -w -o bin/axpy_vector_O2 src/*.c.o -lm; \
 	${CLANG_DIR}bin/llvm-objdump -d bin/axpy_vector_O2 > bin/axpy_vector_O2.dump; \
 	rm src/*.o;
 

@@ -34,19 +34,19 @@ vector_O2:
 	${GCC_TOOLCHAIN_DIR}bin/riscv64-unknown-linux-gnu-objdump -d bin/pathfinder_vector_O2 > bin/pathfinder_vector_O2.dump
 
 serial_clang:
-	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -g -o bin/pathfinder_serial src/pathfinder.cpp
+	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -g -w -o bin/pathfinder_serial src/pathfinder.cpp
 	${CLANG_DIR}bin/llvm-objdump -d bin/pathfinder_serial > bin/pathfinder_serial.dump
 
 vector_clang:
-	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -g -o bin/pathfinder_vector src/pathfinder.cpp
+	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -g -w -o bin/pathfinder_vector src/pathfinder.cpp
 	${CLANG_DIR}bin/llvm-objdump -d bin/pathfinder_vector > bin/pathfinder_vector.dump
 
 serial_O2_clang:
-	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -O2 -g -o bin/pathfinder_serial_O2 src/pathfinder.cpp
+	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -O2 -g -w -o bin/pathfinder_serial_O2 src/pathfinder.cpp
 	${CLANG_DIR}bin/llvm-objdump -d bin/pathfinder_serial_O2 > bin/pathfinder_serial_O2.dump
 
 vector_O2_clang:
-	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -O2 -g -o bin/pathfinder_vector_O2 src/pathfinder.cpp
+	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -O2 -g -w -o bin/pathfinder_vector_O2 src/pathfinder.cpp
 	${CLANG_DIR}bin/llvm-objdump -d bin/pathfinder_vector_O2 > bin/pathfinder_vector_O2.dump
 
 clean:
