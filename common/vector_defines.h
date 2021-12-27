@@ -341,10 +341,10 @@ vfloat64m1_t vmerge_vvm_f64m1 (vbool64_t mask, vfloat64m1_t op1, vfloat64m1_t op
 #define _MM_MERGE_f32(op1, op2, op3, op4) vmerge_vvm_f32m1(op3, op1, op2, op4)
 
 //#define _MM_REDSUM_f64  	__builtin_epi_vfredsum_1xf64 
-#define _MM_REDSUM_f64(op1, op2, op3) vfredsum_vs_f64m1_f64m1(op2, op1, op2, op3)
+#define _MM_REDSUM_f64(op1, op2, op3) vfredosum_vs_f64m1_f64m1(op2, op1, op2, op3)
 
 //#define _MM_REDSUM_f32  	__builtin_epi_vfredsum_2xf32
-#define _MM_REDSUM_f32(op1, op2, op3) vfredsum_vs_f32m1_f32m1(op2, op1, op2, op3)
+#define _MM_REDSUM_f32(op1, op2, op3) vfredosum_vs_f32m1_f32m1(op2, op1, op2, op3)
 
 #define _MM_REDSUM_f64_MASK __builtin_epi_vfredsum_1xf64_mask //TODO, not being used
 #define _MM_REDSUM_f32_MASK __builtin_epi_vfredsum_2xf32_mask  //TODO, not being used
