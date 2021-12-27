@@ -9,16 +9,19 @@
 #define _MMR_f64        	vfloat64m1_t //<vscale x 1 x double>  //__epi_1xf64
 #define _MMR_f32        	vfloat32m1_t //<vscale x 2 x float>  //__epi_2xf32
 
-#define _MMR_2xf64			vfloat64m2_t //<vscale x 2 x double> //__epi_2xf64
-#define _MMR_4xf64			vfloat32m2_t //<vscale x 4 x float> //__epi_4xf32
+#define _MMR_2xf64			  vfloat64m2_t //<vscale x 2 x double> //__epi_2xf64
+#define _MMR_4xf64			  vfloat32m2_t //<vscale x 4 x float> //__epi_4xf32
 
-#define _MMR_i64            vint64m1_t //<vscale x 1 x i64> //__epi_1xi64
+#define _MMR_i64          vint64m1_t //<vscale x 1 x i64> //__epi_1xi64
+#define _MMR_u64          vuint64m1_t
 #define _MMR_i32        	vint32m1_t //<vscale x 2 x i32> //__epi_2xi32
 
 //---------------------------------------------------------------------------
 // TYPE CAST
 
 #define _MM_CAST_u64_i64(op1)     vreinterpret_v_u64m1_i64m1(op1)
+
+#define _MM_CAST_i64_u64(op1)     vreinterpret_v_i64m1_u64m1(op1)
 
 #define _MM_CAST_f64_i64(op1)     vreinterpret_v_f64m1_i64m1(op1)
 
@@ -35,11 +38,16 @@
 #define _MM_CAST_i32_f32(op1)     vreinterpret_v_i32m1_f32m1(op1)
 
 
+#define _MM_CAST_i64_i32(op1)     vreinterpret_v_i64m1_i32m1(op1)
+
+
 //---------------------------------------------------------------------------
 // INTEGER INTRINSICS
 
 //#define _MM_LOAD_i64        __builtin_epi_vload_1xi64
 #define _MM_LOAD_i64(op1, op2)     vle64_v_i64m1(op1, op2)
+
+#define _MM_LOAD_u64(op1, op2)     vle64_v_u64m1(op1, op2)
 
 //#define _MM_LOAD_i32    	__builtin_epi_vload_2xi32
 #define _MM_LOAD_i32(op1, op2)     vle32_v_i32m1(op1, op2)
@@ -518,7 +526,7 @@ https://github.com/riscv/rvv-intrinsic-doc/issues/37
 //#define _MM_VMPOPC_i64 		__builtin_epi_vmpopc_1xi1
 #define _MM_VMPOPC_i64(op1, op2) vcpop_m_b64(op1, op2) //This function is not found in epi's testcases
 //#define _MM_VMPOPC_i32 		__builtin_epi_vmpopc_2xi1 
-#define _MM_VMPOPC_i32(op1, op2) vpopc_m_b32(op1, op2) //This function is not found in epi's testcases
+#define _MM_VMPOPC_i32(op1, op2) vcpop_m_b32(op1, op2) //This function is not found in epi's testcases
 
 //#define _MM_VMAND_i64 		__builtin_epi_vmand_1xi1
 #define _MM_VMAND_i64(op1, op2, op3) vmand_mm_b64(op1, op2, op3)
