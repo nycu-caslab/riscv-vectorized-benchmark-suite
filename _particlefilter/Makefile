@@ -1,9 +1,7 @@
-#makefile
-
-GCC_TOOLCHAIN_DIR := /opt/RISCV/
-CLANG_DIR := /git/llvm-project/build/
-GEM5_DIR := /git/plct-gem5/
-BENCHMARK_DIR := /git/riscv-vectorized-benchmark-suite/
+export GCC_TOOLCHAIN_DIR= /opt/riscv-gnu-toolchain/
+export CLANG_DIR= /opt/llvm/
+export GEM5_DIR= /opt/gem5/
+export QEMU_DIR= /opt/qemu
 
 start:
 	if [ ! -d bin ]; then \
@@ -70,7 +68,7 @@ runqemu_O2 :
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/particlefilter_vector_O2 -x 128 -y 128 -z 2 -np 256
 	
 rungem5 :
-	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_particlefilter/bin/particlefilter_vector -x 128 -y 128 -z 2 -np 256"
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_particlefilter/bin/particlefilter_vector -x 128 -y 128 -z 2 -np 256"
 
 rungem5_O2 :
-	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_particlefilter/bin/particlefilter_vector_O2 -x 128 -y 128 -z 2 -np 256"
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_particlefilter/bin/particlefilter_vector_O2 -x 128 -y 128 -z 2 -np 256"

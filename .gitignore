@@ -3,3 +3,6 @@ bin/
 
 # Ignore Outputs
 output/
+
+# Ignore object files
+*.o

@@ -13,131 +13,124 @@ The implementation is based on the working draft of the proposed [RISC-V V vecto
 If you use this software or a modified version of it for your research, please cite the paper:
 Cristóbal Ramirez, César Hernandez, Oscar Palomar, Osman Unsal, Marco Ramírez, and Adrián Cristal. 2020. A RISC-V Simulator and Benchmark Suite for Designing and Evaluating Vector Architectures. ACM Trans. Archit. Code Optim. 17, 4, Article 38 (October 2020), 29 pages. https://doi.org/10.1145/3422667
 
-
-
 ## Pakage Structure
 
     Vectorized_Benchmark_Suite/ : The Vectorized Benchmark Suite
         _axpy/                  : axpy main folder
         ...../src               : axpy sources
         ...../bin               : axpy binary
-        blackscholes/           : Blackscholes main folder
+        _blackscholes/          : Blackscholes main folder
         ...../src               : Blackscholes sources
         ...../bin               : Blackscholes binary
-        canneal/                : canneal main folder
+        _canneal/               : canneal main folder
         ...../src               : canneal sources
         ...../bin               : canneal binary
         _jacobi-2d/             : jacobi-2d main folder
         ...../src               : jacobi-2d sources
         ...../bin               : jacobi-2d binary
-        particlefilter/         : particlefilter main folder
+        _particlefilter/        : particlefilter main folder
         ...../src               : particlefilter sources
         ...../bin               : particlefilter binary
-        pathfinder/             : pathfinder main folder
+        _pathfinder/            : pathfinder main folder
         ...../src               : pathfinder sources
         ...../bin               : pathfinder binary
-        streamcluster/          : streamcluster main folder
+        _streamcluster/         : streamcluster main folder
         ...../src               : streamcluster sources
         ...../bin               : streamcluster binary
-        swaptions/              : swaptions main folder
+        _swaptions/             : swaptions main folder
         ...../src               : swaptions sources
         ...../bin               : swaptions binary
         common/                 : intrinsics defines & Math functions
 
-## Building Vectorized Applications 
+## Building Vectorized Applications
 
 The RISC-V Vectorized Bencmark Suite has been successfully tested on QEMU Simulator of the **rvv-intrinsic** branch of [RISC-V GNU toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain) and the **benchmark** branch of [plct-gem5](https://github.com/plctlab/plct-gem5)
 
 ### Setting up the environment
 
-The Suite includes a makefile to compile every application. In order to use it, you must [Build RISC-V GNU toolchain](./Build_RISCV_GNU_toolchain.md) and define the path to it.
+#### Generate binaries using RISC-V GNU toolchain
 
-Setting RISC-V GNU toolchain path
-```
-export GCC_TOOLCHAIN_DIR := /opt/RISCV/
-```
+The Suite includes a makefile to compile every application. In order to use it, you must [Build RISC-V GNU toolchain](./Build_RISCV_GNU_toolchain.md).
 
 Currently, the Suite can only be compiled by the **rvv-intrinsic** branch of [RISC-V GNU toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain).
 
+#### Generate binaries using LLVM
+
+The Suite also can be compiled with LLVM, you need to install the [LLVM Compiler Infrastructure](https://github.com/llvm/llvm-project). Currently LLVM uses RISC-V GNU toolchain to link and generate executable file, so you also need to install it.
+
 ### Compile using RISC-V GNU toolchain for RISCV Vector Version
 
-To compile any application you can run the command make followed by the application name
+To compile any application you can run the command make followed by the application name:
+
+```bash
+make blackscholes
+make swaptions
+make streamcluster
+make canneal
+make particlefilter
+make pathfinder
+make jacobi-2d
+make axpy
 ```
-make $application
+
+To compile with the "-O2" optimization option you can run the command with `_O2` suffix. For example:
+
+```bash
+make blackscholes_O2
 ```
-For example to compile blackscholes:
+
+To compile with LLVM clang, you can run the command with `_clang` suffix:
+
+```bash
+make blackscholes_clang
+make blackscholes_O2_clang
 ```
-make blackscholes 
-```
-The same for the other applications ...
 
 To compile all applications you can run
-```
+
+```bash
 make all
+make all_O2
+# OR
+make all_clang
+make all_O2_clang
 ```
 
-To compile with the "-O2" optimization option you can run the command with "\_O2" suffix. For example:
+Our Makefile comes with default assumption about GNU toolchain and LLVM's install path:
+
+```bash
+export GCC_TOOLCHAIN_DIR= /opt/riscv-gnu-toolchain/
+export CLANG_DIR= /opt/llvm/
 ```
-make all_O2
-```
-or
-```
-make blackscholes_O2
+
+If this is wrong path for you, you can change it:
+
+```bash
+make all GCC_TOOLCHAIN_DIR=/path/to/toolchain/ CLANG_DIR=/path/to/clang/
 ```
 
 ### Running applications
 
-The Suite includes a makefile to compile every application. In order to use it, you must [build QEMU Simulator of RISC-V GNU toolchain](./Build_RISCV_GNU_toolchain.md) or [plct-gem5](https://github.com/plctlab/plct-gem5) and define the path to it.
+The Suite includes a makefile to compile every application. In order to use it, you must [build QEMU Simulator of RISC-V GNU toolchain](./Build_RISCV_GNU_toolchain.md) or [plct-gem5](https://github.com/plctlab/plct-gem5).
 
-Setting path of gem5 and benchmark:
-```
-export GEM5_DIR := /git/plct-gem5/
-export BENCHMARK_DIR := /git/riscv-vectorized-benchmark-suite/
-```
+To run any application .
 
-To run any application you first enter in the subfolder and run the running command.
-```
-cd _$application
-make runqemu
-```
-or
-```
-cd _$application
-make rungem5
-```
+```bash
+make rungem5_blackscholes
+make rungem5_blackscholes_O2
 
-For example:
-```
-cd _blackscholes
-make runqemu
-```
-or
-```
-cd _blackscholes
-make rungem5
-```
+make runqemu_blackscholes
+make runqemu_blackscholes_O2
 
-To run the version with "-O2" optimization option you can run the command with "\_O2" suffix.
-```
-cd _$application
-make runqemu_O2
-```
-or
-```
-cd _$application
-make rungem5_O2
-```
+make rungem5_all
+make rungem5_all_O2
 
-To run all applications you can:
-```
-make runqemu_all{_O2}
-```
-or
-```
-make rungem5_all{_O2}
+make runqemu_all
+make runqemu_all_O2
 ```
 
 There are provided 4 different simulation sizes (arguments to run the application).
+
 ```
 simtiny 
 simsmall
@@ -146,7 +139,9 @@ simlarge
 ```
 
 When you are executing an application, you must write the following arguments to run a predefined simsize.
-#### simtiny 
+
+#### simtiny
+
 ```
 blackscholes_args   = "1 input/in_512.input output_prices.txt"
 canneal_args        = "1 100 300 input/100.nets 8"
@@ -157,7 +152,8 @@ pathfinder_args     = "32 32 output.txt"
 axpy_args           = "256"
 ```
 
-#### simsmall 
+#### simsmall
+
 ```
 blackscholes_args   = "1 input/in_4K.input output_prices.txt"
 canneal_args        = "1 10000 2000 input/100000.nets 32"
@@ -166,9 +162,10 @@ swaptions_args      = "-ns 8 -sm 4096 -nt 1"
 particlefilter_args = "-x 128 -y 128 -z 8 -np 1024"
 pathfinder_args     = "1024 128 output.txt"
 axpy_args           = "512"
-```  
+```
 
 #### simmedium
+
 ```
 blackscholes_args   = "1 input/in_16K.input prices.txt"
 canneal_args        = "1 15000 2000 input/200000.nets 64"
@@ -177,9 +174,10 @@ swaptions_args      = "-ns 32 -sm 8192 -nt 1"
 particlefilter_args = "-x 128 -y 128 -z 16 -np 4096"
 pathfinder_args     = "2048 256 output.txt"
 axpy_args           = "1024"
-```  
+```
 
 #### simlarge
+
 ```
 blackscholes_args   = "1 input/in_64K.input prices.txt"
 canneal_args        = "1 15000 2000 input/400000.nets 128"
@@ -188,18 +186,20 @@ swaptions_args      = "-ns 64 -sm 16384 -nt 1"
 particlefilter_args = "-x 128 -y 128 -z 24 -np 8192"
 pathfinder_args     = "2048 1024 output.txt"
 axpy_args           = "2048"
-```  
+```
 
 **Simtiny** is used by commands in Makefiles. If you want to run with the other simsize, you can try following commands, too.
 
 ```
 cd _$application
-${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/$application_bin $application_args
+${QEMU_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/$application_bin $application_args
 ```
+
 or
+
 ```
 cd _$application
-${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${BENCHMARK_DIR}_$application/bin/$application_bin $application_args"
+${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_$application/bin/$application_bin $application_args"
 ```
 
 ## Contributors and Contacts
@@ -208,10 +208,8 @@ Yin Zhang   zhangyin2018@iscas.ac.cn
 
 Chunyu Liao chunyu@iscas.ac.cn
 
-
 Original author:
 
 Cristóbal Ramírez Lazo: cristobal.ramirez@bsc.es
 PhD. Student at UPC Barcelona   
 BSC - Barcelona Supercomputing Center
-
