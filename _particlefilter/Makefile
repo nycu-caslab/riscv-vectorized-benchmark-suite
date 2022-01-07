@@ -21,7 +21,7 @@ serial:
 	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-objdump -d bin/particlefilter_serial > bin/particlefilter_serial.dump
 	rm src/*.o
 
-	/opt/rvv-llvm/bin/clang++ --gcc-toolchain=/opt/RISCV --sysroot=/opt/RISCV/riscv64-unknown-linux-gnu -march=rv64gcv_zfh -flax-vector-conversions -static -g -c -o src/particlefilter_serial.o src/particlefilter.c
+
 vector:
 	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -static -g -c -o src/particlefilter_vector.o src/particlefilter.c
 	${GCC_TOOLCHAIN_DIR}/bin/riscv64-unknown-linux-gnu-g++ -march=rv64gcv_zfh -DUSE_RISCV_VECTOR -flax-vector-conversions -static -g -o bin/particlefilter_vector src/*.o -lm
