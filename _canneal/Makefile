@@ -84,7 +84,7 @@ runqemu_O2 :
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/canneal_vector_O2 1 100 300 input/100.nets 8
 
 rungem5 :
-	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_canneal/bin/canneal_vector 1 100 300 input/100.nets 8"
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${PWD}/bin/canneal_vector 1 100 300 input/100.nets 8"
 
 rungem5_O2 :
-	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_canneal/bin/canneal_vector_O2 1 100 300 input/100.nets 8"
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${PWD}/bin/canneal_vector_O2 1 100 300 input/100.nets 8"

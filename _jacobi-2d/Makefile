@@ -58,7 +58,7 @@ runqemu_O2 :
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/jacobi-2d_vector_O2 200 1 ./output/output_vector.txt
 
 rungem5 :
-	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_jacobi-2d/bin/jacobi-2d_vector 200 1 ./output/output_vector.txt"
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${PWD}/bin/jacobi-2d_vector 200 1 ./output/output_vector.txt"
 
 rungem5_O2 :
-	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_jacobi-2d/bin/jacobi-2d_vector_O2 200 1 ./output/output_vector.txt"
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${PWD}/bin/jacobi-2d_vector_O2 200 1 ./output/output_vector.txt"

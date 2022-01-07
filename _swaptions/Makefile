@@ -84,7 +84,7 @@ runqemu_O2 :
 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/swaptions_vector_O2 -ns 8 -sm 512 -nt 1
 
 rungem5 :
-	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_swaptions/bin/swaptions_vector -ns 8 -sm 512 -nt 1"
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${PWD}/bin/swaptions_vector -ns 8 -sm 512 -nt 1"
 
 rungem5_O2 :
-	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_swaptions/bin/swaptions_vector_O2 -ns 8 -sm 512 -nt 1"
+	${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${PWD}/bin/swaptions_vector_O2 -ns 8 -sm 512 -nt 1"

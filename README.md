@@ -199,7 +199,7 @@ or
 
 ```
 cd _$application
-${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="./_$application/bin/$application_bin $application_args"
+${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.py --cmd="${PWD}/bin/$application_bin $application_args"
 ```
 
 ## Contributors and Contacts
