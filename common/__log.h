@@ -119,7 +119,7 @@ _MMR_f64 y = _ps256_cephes_log_p0;
   // y = _MM_MUL_f64(y, x,gvl);
   // y = _MM_ADD_f64(y, _ps256_cephes_log_p8,gvl);
   y = _MM_MADD_f64(y,x,_ps256_cephes_log_p8,gvl);
-  // y = _MM_MUL_f64(y, x,gvl);
+  y = _MM_MUL_f64(y, x,gvl);
 
   y = _MM_MUL_f64(y, z,gvl);
 
@@ -228,7 +228,7 @@ _MMR_f32 y = _ps256_cephes_log_p0;
   // y = _MM_MUL_f32(y, x,gvl);
   // y = _MM_ADD_f32(y, _ps256_cephes_log_p8,gvl);
   y = _MM_MADD_f32(y,x,_ps256_cephes_log_p8,gvl);
-  // y = _MM_MUL_f32(y, x,gvl);
+  y = _MM_MUL_f32(y, x,gvl);
 
   y = _MM_MUL_f32(y, z,gvl);
 
