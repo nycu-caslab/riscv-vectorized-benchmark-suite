@@ -2,6 +2,7 @@ export GCC_TOOLCHAIN_DIR= /opt/riscv-gnu-toolchain/
 export CLANG_DIR= /opt/llvm/
 export GEM5_DIR= /opt/gem5/
 export QEMU_DIR= /opt/qemu
+export llvm_dump_options?= -d --mattr=experimental-v
 
 start:
 	if [ ! -d bin ]; then \
@@ -33,19 +34,19 @@ vector_O2:
 
 serial_clang:
 	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -g -w -o bin/streamcluster_serial src/streamcluster.cpp
-	${CLANG_DIR}bin/llvm-objdump -d bin/streamcluster_serial > bin/streamcluster_serial.dump
+	${CLANG_DIR}bin/llvm-objdump ${llvm_dump_options} bin/streamcluster_serial > bin/streamcluster_serial.dump
 
 vector_clang:
 	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -g -w -o bin/streamcluster_vector src/streamcluster.cpp
-	${CLANG_DIR}bin/llvm-objdump -d bin/streamcluster_vector > bin/streamcluster_vector.dump
+	${CLANG_DIR}bin/llvm-objdump ${llvm_dump_options} bin/streamcluster_vector > bin/streamcluster_vector.dump
 
 serial_O2_clang:
 	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -O2 -g -w -o bin/streamcluster_serial_O2 src/streamcluster.cpp
-	${CLANG_DIR}bin/llvm-objdump -d bin/streamcluster_serial_O2 > bin/streamcluster_serial_O2.dump
+	${CLANG_DIR}bin/llvm-objdump ${llvm_dump_options} bin/streamcluster_serial_O2 > bin/streamcluster_serial_O2.dump
 
 vector_O2_clang:
 	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -O2 -g -w -o bin/streamcluster_vector_O2 src/streamcluster.cpp
-	${CLANG_DIR}bin/llvm-objdump -d bin/streamcluster_vector_O2 > bin/streamcluster_vector_O2.dump
+	${CLANG_DIR}bin/llvm-objdump ${llvm_dump_options} bin/streamcluster_vector_O2 > bin/streamcluster_vector_O2.dump
 
 clean:
 	rm -rf bin/

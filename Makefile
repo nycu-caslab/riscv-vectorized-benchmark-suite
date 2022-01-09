@@ -1,5 +1,7 @@
 BASE_DIR := $(shell pwd)
 
+export llvm_dump_options?= -d --mattr=experimental-v
+
 APPLICATION_DIRS := _blackscholes _swaptions _streamcluster _canneal _particlefilter _pathfinder _jacobi-2d _axpy
 
 all: blackscholes swaptions streamcluster canneal particlefilter pathfinder jacobi-2d axpy

@@ -2,6 +2,7 @@ export GCC_TOOLCHAIN_DIR= /opt/riscv-gnu-toolchain/
 export CLANG_DIR= /opt/llvm/
 export GEM5_DIR= /opt/gem5/
 export QEMU_DIR= /opt/qemu
+export llvm_dump_options?= -d --mattr=experimental-v
 
 start:
 	if [ ! -d bin ]; then \
@@ -42,19 +43,19 @@ vector_O2:
 
 serial_clang:
 	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -g -w -o bin/particlefilter_serial src/particlefilter.c
-	${CLANG_DIR}bin/llvm-objdump -d bin/particlefilter_serial > bin/particlefilter_serial.dump
+	${CLANG_DIR}bin/llvm-objdump ${llvm_dump_options} bin/particlefilter_serial > bin/particlefilter_serial.dump
 
 vector_clang:
 	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -g -w -o bin/particlefilter_vector src/particlefilter.c
-	${CLANG_DIR}bin/llvm-objdump -d bin/particlefilter_vector > bin/particlefilter_vector.dump
+	${CLANG_DIR}bin/llvm-objdump ${llvm_dump_options} bin/particlefilter_vector > bin/particlefilter_vector.dump
 
 serial_O2_clang:
 	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -static -O2 -g -w -o bin/particlefilter_serial_O2 src/particlefilter.c
-	${CLANG_DIR}bin/llvm-objdump -d bin/particlefilter_serial_O2 > bin/particlefilter_serial_O2.dump
+	${CLANG_DIR}bin/llvm-objdump ${llvm_dump_options} bin/particlefilter_serial_O2 > bin/particlefilter_serial_O2.dump
 
 vector_O2_clang:
 	${CLANG_DIR}bin/clang++ --target=riscv64-unknown-linux-gnu -march=rv64gcv0p10 -menable-experimental-extensions --gcc-toolchain=${GCC_TOOLCHAIN_DIR} --sysroot=${GCC_TOOLCHAIN_DIR}sysroot -flax-vector-conversions -DUSE_RISCV_VECTOR -static -O2 -g -w -o bin/particlefilter_vector_O2 src/particlefilter.c
-	${CLANG_DIR}bin/llvm-objdump -d bin/particlefilter_vector_O2 > bin/particlefilter_vector_O2.dump
+	${CLANG_DIR}bin/llvm-objdump ${llvm_dump_options} bin/particlefilter_vector_O2 > bin/particlefilter_vector_O2.dump
 
 
 clean:
