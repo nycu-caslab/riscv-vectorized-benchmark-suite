@@ -4,7 +4,7 @@ Here is a step by step guide on how to compile the RISCV-GNU-Toolchain on macOS 
 
 
 ```bash
-git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git -b rvv-intrinsic
+git clone https://github.com/riscv-collab/riscv-gnu-toolchain.git -b rvv-next
 cd riscv-gnu-toolchain
 ```
 
