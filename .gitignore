@@ -8,3 +8,8 @@ output/
 *.o
 
 m5out/
+
+env.mk
+*.log
+log
+*.bk
