@@ -32,8 +32,7 @@
 
   (this is the zlib license)
 */
-
-inline _MMR_f64 __cos_1xf64(_MMR_f64 x , unsigned long int gvl) {
+static _MMR_f64 __cos_1xf64(_MMR_f64 x , unsigned long int gvl) {
 
 _MMR_i64   _ps_inv_sign_mask    = _MM_SET_i64(~0x8000000000000000,gvl);
 _MMR_f64   _ps_cephes_FOPI      = _MM_SET_f64(1.27323954473516,gvl); // 4 / M_PI
@@ -150,7 +149,7 @@ _MMR_MASK_i64 xMask;
   return y;
 }
 
-inline _MMR_f32 __cos_1xf32(_MMR_f32 x , unsigned long int gvl) {
+static _MMR_f32 __cos_1xf32(_MMR_f32 x , unsigned long int gvl) {
 
 _MMR_i32   _ps_inv_sign_mask    = _MM_SET_i32(~0x80000000,gvl);
 _MMR_f32   _ps_cephes_FOPI      = _MM_SET_f32(1.27323954473516,gvl); // 4 / M_PI

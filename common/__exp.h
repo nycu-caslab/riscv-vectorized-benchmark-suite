@@ -33,7 +33,7 @@
   (this is the zlib license)
 */
 
-inline _MMR_f64 __exp_1xf64(_MMR_f64 x ,unsigned long int gvl) {
+static _MMR_f64 __exp_1xf64(_MMR_f64 x ,unsigned long int gvl) {
 
 _MMR_f64   exp_hi        = _MM_SET_f64(88.3762626647949,gvl);
 _MMR_f64   exp_lo        = _MM_SET_f64(-88.3762626647949,gvl);
@@ -116,7 +116,7 @@ _MMR_i64  tmp3;
 }
 
 
-inline _MMR_f32 __exp_2xf32(_MMR_f32 x ,unsigned long int gvl) {
+static _MMR_f32 __exp_2xf32(_MMR_f32 x ,unsigned long int gvl) {
 
 _MMR_f32   exp_hi        = _MM_SET_f32(88.3762626647949,gvl);
 _MMR_f32   exp_lo        = _MM_SET_f32(-88.3762626647949,gvl);

@@ -89,7 +89,7 @@ double randu(int * seed, int index)
 }
 
 #ifdef USE_RISCV_VECTOR
-inline _MMR_f64 randu_vector(long int * seed, int index ,unsigned long int gvl)
+_MMR_f64 randu_vector(long int * seed, int index ,unsigned long int gvl)
 {
     /*
     _MMR_i64    xseed = _MM_LOAD_i64(&seed[index],gvl);
@@ -148,7 +148,7 @@ double randn(int * seed, int index){
 }
 
 #ifdef USE_RISCV_VECTOR
-inline _MMR_f64 randn_vector(long int * seed, int index ,unsigned long int gvl){
+_MMR_f64 randn_vector(long int * seed, int index ,unsigned long int gvl){
     /*Box-Muller algorithm*/
     _MMR_f64    xU = randu_vector(seed,index,gvl);
     _MMR_f64    xV = randu_vector(seed,index,gvl);

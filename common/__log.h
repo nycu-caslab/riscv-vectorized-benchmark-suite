@@ -32,7 +32,7 @@
 
   (this is the zlib license)
 */
-inline _MMR_f64 __log_1xf64(_MMR_f64 x , unsigned long int gvl) {
+static _MMR_f64 __log_1xf64(_MMR_f64 x , unsigned long int gvl) {
 
 _MMR_f64   _ps256_cephes_SQRTHF     = _MM_SET_f64(0.707106781186547524,gvl);
 
@@ -141,7 +141,7 @@ _MMR_f64 y = _ps256_cephes_log_p0;
 
 
 
-inline _MMR_f32 __log_2xf32(_MMR_f32 x , unsigned long int gvl) {
+static _MMR_f32 __log_2xf32(_MMR_f32 x , unsigned long int gvl) {
 
 _MMR_f32   _ps256_cephes_SQRTHF     = _MM_SET_f32(0.707106781186547524,gvl);
 

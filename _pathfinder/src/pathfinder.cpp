@@ -54,7 +54,7 @@ float elapsed_time(long long start_time, long long end_time) {
 void init(int argc, char** argv)
 {
     if(argc!=4){
-        printf("Usage: pathfiner width num_of_steps input_file output_file\n");
+        printf("Usage: pathfiner width num_of_steps output_file\n");
         exit(0);
     }
 
