@@ -69,45 +69,20 @@ make streamcluster
 make canneal
 make particlefilter
 make pathfinder
-make jacobi-2d
+make jacobi-2d # missed header file, I will fix later
 make axpy
 ```
 
-To compile with the "-O2" optimization option you can run the command with `_O2` suffix. For example:
-
-```bash
-make blackscholes_O2
-```
-
-To compile with LLVM clang, you can run the command with `_clang` suffix:
-
-```bash
-make blackscholes_clang
-make blackscholes_O2_clang
-```
 
 To compile all applications you can run
 
 ```bash
 make all
-make all_O2
-# OR
-make all_clang
-make all_O2_clang
+# make all_O2
 ```
 
 Our Makefile comes with default assumption about GNU toolchain and LLVM's install path:
-
-```bash
-export GCC_TOOLCHAIN_DIR= /opt/riscv-gnu-toolchain/
-export CLANG_DIR= /opt/llvm/
-```
-
-If this is wrong path for you, you can change it:
-
-```bash
-make all GCC_TOOLCHAIN_DIR=/path/to/toolchain/ CLANG_DIR=/path/to/clang/
-```
+- Please copy your env.mk.template to env.mk and modify the ENV VAR
 
 ### Running applications
 
@@ -117,16 +92,16 @@ To run any application .
 
 ```bash
 make rungem5_blackscholes
-make rungem5_blackscholes_O2
+# make rungem5_blackscholes_O2
 
 make runqemu_blackscholes
-make runqemu_blackscholes_O2
+# make runqemu_blackscholes_O2
 
 make rungem5_all
-make rungem5_all_O2
+# make rungem5_all_O2
 
 make runqemu_all
-make runqemu_all_O2
+# make runqemu_all_O2
 ```
 
 There are provided 4 different simulation sizes (arguments to run the application).
@@ -203,6 +178,7 @@ ${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.p
 ```
 
 ## Contributors and Contacts
+Hung Yan Tai eric.tai@sifive.com
 
 Yin Zhang   zhangyin2018@iscas.ac.cn
 
