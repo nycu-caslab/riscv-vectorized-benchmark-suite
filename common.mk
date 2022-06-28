@@ -1,4 +1,11 @@
-include ../env.mk
+# this_path:=$(abspath $(lastword $(MAKEFILE_LIST)))
+# ROOT_DIR:=$(notdir $(patsubst %/,%,$(dir $(this_path))))
+# ABS_ROOT_DIR=$(abspath $(ROOT_DIR))
+# ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+
+include $(ROOT_DIR)/env.mk
+
+
 RISCV_FLAGS := -march=$(ARCH) -DUSE_RISCV_VECTOR -static -g
 
 SRC_C:= $(wildcard src/*.c )

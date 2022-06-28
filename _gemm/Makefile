@@ -1,5 +1,7 @@
 
-include ../common.mk
+CUR_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+ROOT_DIR:=$(CUR_DIR)/../
+include $(ROOT_DIR)/common.mk
 
 vector: $(OBJ)
 	${RISCV_CC} ${RISCV_FLAGS} -o bin/gemm $^ -lm; \

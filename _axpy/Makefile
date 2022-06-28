@@ -1,4 +1,6 @@
-include ../common.mk
+CUR_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+ROOT_DIR:=$(CUR_DIR)/../
+include $(ROOT_DIR)/common.mk
 
 MAIN:=axpy
 
