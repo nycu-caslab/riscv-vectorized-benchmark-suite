@@ -4,15 +4,16 @@ include $(ROOT_DIR)/common.mk
 
 
 MAIN:=vmv_x_s
-
+DIST_DIR = bin
 
 vector: $(OBJ)
-	${RISCV_CC} ${RISCV_FLAGS} -o bin/$(MAIN) $^ -lm; \
-	${RISCV_DUMP} -D bin/$(MAIN) > bin/$(MAIN).dump; \
+	test ! -d $(DIST_DIR) && mkdir $(DIST_DIR); \
+	${RISCV_CC} ${RISCV_FLAGS} -o $(DIST_DIR)/$(MAIN) $^ -lm; \
+	${RISCV_DUMP} -D $(DIST_DIR)/$(MAIN) > $(DIST_DIR)/$(MAIN).dump; \
 	rm src/*.o;
 
 clean:
-	rm -rf bin/
+	rm -rf $(DIST_DIR)/
 
 runqemu :
 	${QEMU_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true,vlen=128,elen=64,vext_spec=v1.0 ${PWD}/bin/$(MAIN) > qemu.log
@@ -25,7 +26,7 @@ rungem5 :
 		${GEM5_DIR}configs/example/se.py --num-cpus 1 \
         --cpu-type MinorCPU \
         --caches \
-        --cmd ${PWD}/bin/$(MAIN) \
+        --cmd ${PWD}/$(DIST_DIR)/$(MAIN) \
 		--output log
 		2>&1 | tee run.log
 
@@ -34,7 +35,7 @@ gdb:
 		${GEM5_DIR}configs/example/se.py --num-cpus 1 \
         --cpu-type MinorCPU \
         --caches \
-        --cmd ${PWD}/bin/$(MAIN) \
+        --cmd ${PWD}/$(DIST_DIR)/$(MAIN) \
 		--output log \
 		2>&1 | tee run.log 
 	gdb ${GEM5_DIR}build/RISCV/gem5.debug
