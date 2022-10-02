@@ -35,6 +35,8 @@
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
+#define LEFT_SHIFT(_shift) (_shift > 0 ? _shift : 0)
+#define RIGHT_SHIFT(_shift) (_shift > 0 ? 0 : -_shift)
 
 typedef int8_t q7_t;
 typedef int16_t q15_t;
@@ -141,5 +143,17 @@ typedef struct
     const int16_t *exp_lut;
     const int16_t *one_by_one_lut;
 } cmsis_nn_softmax_lut_s16;
+
+struct nn_double
+{
+    uint32_t low;
+    int32_t high;
+};
+
+union nn_long_long
+{
+    int64_t long_long;
+    struct nn_double word;
+};
 
 #endif // _ARM_NN_TYPES_H
