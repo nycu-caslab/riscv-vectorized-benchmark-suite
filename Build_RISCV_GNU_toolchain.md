@@ -49,7 +49,7 @@ Here is a step by step guide on how to compile the RISCV-GNU-Toolchain on Ubuntu
 I refer to [this link](https://github.com/plctlab/riscv-vectorized-benchmark-suite/blob/dev/Build_RISCV_GNU_toolchain.md) for installation. 
 
 ```
-git clone git@github.com:riscv/riscv-gnu-toolchain.git -b rvv-intrinsic
+git clone git@github.com:riscv/riscv-gnu-toolchain.git -b rvv-next
 cd riscv-gnu-toolchain
 git submodule update --init --recursive
 ./configure --prefix=/opt/RISCV --with-arch=rv64gcv_zfh --with-abi=lp64d

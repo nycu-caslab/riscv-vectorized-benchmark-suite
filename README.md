@@ -178,8 +178,9 @@ ${GEM5_DIR}build/RISCV/gem5.opt ${GEM5_DIR}configs/example/riscv_vector_engine.p
 ```
 
 ## Contributors and Contacts
-Hung Yan Tai eric.tai@sifive.com
+Hung Yan Tai nobertai.c@nycu.edu.tw
 
+Original author:
 Yin Zhang   zhangyin2018@iscas.ac.cn
 
 Chunyu Liao chunyu@iscas.ac.cn
@@ -188,7 +189,6 @@ Yang Liu    numbksco@gmail.com
 
 Fan Yang faron.young.yf@gmail.com
 
-Original author:
 
 Cristóbal Ramírez Lazo: cristobal.ramirez@bsc.es
 PhD. Student at UPC Barcelona   
