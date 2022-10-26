@@ -21,7 +21,7 @@ runqemu :
 # 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/axpy_vector_O2 256
 
 rungem5 :
-	${GEM5_DIR}build/RISCV/gem5.debug \
+	${GEM5_DIR}build/RISCV/gem5.opt \
 		${GEM5_DIR}configs/example/se.py --num-cpus 1 \
         --cpu-type MinorCPU \
         --caches \
