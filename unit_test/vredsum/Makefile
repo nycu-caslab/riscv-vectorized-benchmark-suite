@@ -20,13 +20,23 @@ runqemu :
 # runqemu_O2 :
 # 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/axpy_vector_O2 256
 
-rungem5 :
-	${GEM5_DIR}build/RISCV/gem5.opt \
+rundgem5 :
+	${GEM5_DIR}build/RISCV/gem5.debug \
+		--debug-flags=Decode,Exec,VecRegs  \
 		${GEM5_DIR}configs/example/se.py --num-cpus 1 \
         --cpu-type MinorCPU \
-        --caches \
+	--caches \
         --cmd ${PWD}/bin/$(MAIN) \
-		--output log
+		--output log \
+		2>&1 | tee run.log
+
+rungem5 :
+	${GEM5_DIR}build/RISCV/gem5.debug \
+		${GEM5_DIR}configs/example/se.py --num-cpus 1 \
+        --cpu-type MinorCPU \
+	--caches \
+        --cmd ${PWD}/bin/$(MAIN) \
+		--output log \
 		2>&1 | tee run.log
 
 gdb:
