@@ -7,7 +7,7 @@ include $(ROOT_DIR)/env.mk
 
 
 INC:= -I$(ROOT_DIR)/unit_test/common/
-RISCV_FLAGS := -march=$(ARCH) -DUSE_RISCV_VECTOR -static -g $(INC)
+RISCV_FLAGS := -march=$(ARCH) -DUSE_RISCV_VECTOR -fno-tree-vectorize -static -g $(INC)
 
 SRC_C:= $(wildcard src/*.c )
 SRC_S:= $(wildcard src/*.S )

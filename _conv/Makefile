@@ -5,13 +5,20 @@ include $(ROOT_DIR)/common.mk
 
 MAIN:=conv
 
+SMAIN:= conv_scalar
 
 
 
 vector: $(OBJ)
-	${RISCV_CC} ${RISCV_FLAGS} -o bin/$(MAIN) $^ -lm; \
+	${RISCV_CC} -D VECTOR ${RISCV_FLAGS} -o bin/$(MAIN) $^ -lm; \
 	${RISCV_DUMP} -D bin/$(MAIN) > bin/$(MAIN).dump; \
 	rm src/*.o;
+
+scalar: $(OBJ)
+	${RISCV_CC} ${RISCV_FLAGS} -o bin/$(SMAIN) $^ -lm; \
+	${RISCV_DUMP} -D bin/$(SMAIN) > bin/$(SMAIN).dump; \
+	rm src/*.o;
+
 
 clean:
 	rm -rf bin/
@@ -19,15 +26,29 @@ clean:
 runqemu :
 	${QEMU_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true,vlen=128,elen=64,vext_spec=v1.0 ${PWD}/bin/$(MAIN) > qemu.log
 
+
+runqemu_scalar :
+	${QEMU_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true,vlen=128,elen=64,vext_spec=v1.0 ${PWD}/bin/$(SMAIN) > qemu_scalar.log
+
+
 # runqemu_O2 :
 # 	${GCC_TOOLCHAIN_DIR}bin/qemu-riscv64 -cpu rv64,x-v=true bin/axpy_vector_O2 256
 
 rungem5 :
-	${GEM5_DIR}build/RISCV/gem5.debug \
+	${GEM5_DIR}build/RISCV/gem5.opt \
 		${GEM5_DIR}configs/example/se.py --num-cpus 1 \
         --cpu-type MinorCPU \
         --caches \
         --cmd ${PWD}/bin/$(MAIN) \
+		--output log
+		2>&1 | tee run.log
+
+rungem5_scalar :
+	${GEM5_DIR}build/RISCV/gem5.opt \
+		${GEM5_DIR}configs/example/se.py --num-cpus 1 \
+        --cpu-type MinorCPU \
+        --caches \
+        --cmd ${PWD}/bin/$(SMAIN) \
 		--output log
 		2>&1 | tee run.log
 

@@ -3,14 +3,15 @@
 #include <stdio.h>
 
 
+
 int main(void) {
 
     size_t m,n;
     m = 100;
     n = 100;
-    uint8_t* a = malloc(sizeof(uint8_t) * (m+2) * (n+2));
-    uint8_t* wei = malloc(sizeof(uint8_t) * 9);
-    uint8_t* b = malloc(sizeof(uint8_t) * m * n);
+    uint8_t* a = (uint8_t*) malloc(sizeof(uint8_t) * (m+2) * (n+2));
+    uint8_t* wei = (uint8_t*) malloc(sizeof(uint8_t) * 9);
+    uint8_t* b = (uint8_t*) malloc(sizeof(uint8_t) * m * n);
 
 
     memset(a, 0, sizeof(uint8_t) * (m+2) * (n+2));
@@ -25,8 +26,11 @@ int main(void) {
     for(int i=0;i<9;i++)
         wei[i] = 1;
 
-
+#ifdef VECTOR
     conv(b, a, wei, m+2, n+2);
+#else
+    conv_scalar(b, a, wei, m+2, n+2);
+#endif
 
     for(int i=0;i<m;i++) {
         for(int j=0;j<n;j++) {

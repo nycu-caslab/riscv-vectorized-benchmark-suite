@@ -44,9 +44,9 @@ void conv(const uint8_t* dst, const uint8_t* src, const uint8_t* wei, size_t m, 
     size_t riter = m - 2;
     size_t cur_vl = 0;
     
-    register uint8_t* src_ = src;
+    register uint8_t* src_ = (uint8_t*) src;
     register uint8_t* src_np = src_;
-    register uint8_t* dst_ = dst;
+    register uint8_t* dst_ = (uint8_t*)dst;
     register uint8_t* dst_np = dst_;
     register uint8_t t0, t1;
 
@@ -240,6 +240,29 @@ void puint8_t(const uint8_t* src, size_t len) {
         printf("%3u ", src[i]);
     }
     printf("\n");
+}
+
+void conv_scalar(const uint8_t* dst, const uint8_t* src, const uint8_t* wei, size_t m, size_t n)
+{
+
+    
+    int dst_m = m-2;
+    int dst_n = n-2;
+
+    uint8_t* dst_p = (uint8_t*)dst;
+
+    
+    for(int hi = 0; hi < m-2; hi++) {
+        for(int wi = 0; wi < n-2; wi++) {
+            uint32_t out = 0;
+            for(int kx = 0; kx < 3; kx++) {
+                for(int ky = 0; ky < 3; ky++) {
+                    out += src[(hi+kx)*n + wi + ky] * wei[kx* 3 + ky];
+                }
+            }
+            dst_p[hi*(n-2)+wi] = out;
+        }
+    }
 }
 
 
